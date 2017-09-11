@@ -1,13 +1,13 @@
-#IIC2173 Tarea 1
+# IIC2173 Tarea 1
 ## Guillermo Figueroa
 
-###Repositorio
+### Repositorio
 Github: https://github.com/gafigueroa/IIC2173-T1
 
-###URL
+### URL
 Aplicación: http://ec2-52-14-158-82.us-east-2.compute.amazonaws.com/
 
-###Fuentes de información
+### Fuentes de información
 
 * Node lo había utilizado anteriormente.
 * MongoDB: https://www.w3schools.com/nodejs/nodejs_mongodb.asp
