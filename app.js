@@ -1,4 +1,4 @@
-var PORT = 80;
+var PORT = 8000;
 
 //Express
 var express = require('express');
@@ -23,25 +23,22 @@ app.get('/', function (req,res) {
 
   //Insert the new element to the databse
   MongoClient.connect(url, function(err, db) {
-    db.collection('connections').insertOne(new_element, function(err, res){
-        if (err) throw err;
+    db.collection('connections').insertOne(new_element, function(err, resDB){
+      if (err) throw err;
+      //Get the elements from the database
+      //Sort in descending order. Show the last 10 connections
+      var mysort = { date: -1 };
+      db.collection('connections')
+      .find({ "ip": { $exists: true, $ne: null } }) //Only show elements that contain an ip
+      .sort(mysort)
+      .limit(10) //Amount of connections to show
+      .toArray(function(err, result){
+        res.send(result); //send the sorted elements to the client
         db.close();
+      });
     });
   });
 
-  //Get the elements from the database
-  //Sort in descending order. Show the last 10 connections
-  MongoClient.connect(url, function(err, db) {
-  	var mysort = { date: -1 };
-  	db.collection('connections')
-    .find({ "ip": { $exists: true, $ne: null } }) //Only show elements that contain an ip
-    .sort(mysort)
-    .limit(10) //Amount of connections to show
-    .toArray(function(err, result){
-  	  res.send(result); //send the sorted elements to the client
-  	  db.close();
-  	});
-  });
 });
 
 // Start the server
